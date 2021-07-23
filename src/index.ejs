@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>webpack App</title>
+  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="w-full">
+  <div class="banner">
+    <div class="eir-container mx-auto">
+      <!-- header navbar starts here -->
+      <%=require('html-loader!./partials/navbar.ejs')%>
+        <!-- header navbar ends here -->
+
+        <!-- banner text starts here -->
+        <%=require('html-loader!./partials/banner.ejs')%>
+          <!-- banner text ends here -->
+
+          <div class="flex mt-16">
+            <% htmlWebpackPlugin.options.circles.forEach(function(circle, index){ %>
+              <div class="flex items-center">
+                  <div class="gray-transparent rounded-full relative">
+                    <div class="absolute -top-14 right-0 text-xs">
+                      <div class="bg-white rounded-full h-16 w-16 text-center leading-4 flex items-center angle-bottom">
+                        <span>You are here</span>
+                      </div>
+                    </div>
+                    <div
+                      class="w-32 h-32 <%=circle.color%>-gradient rounded-full m-4 flex justify-center items-center uppercase">
+                      <div class="text-xs text-white text-center h-14 flex items-end border-b border-gray-200 w-24">
+                        <p class="pb-2">
+                          <%=circle.label%>
+                        </p>
+                        <p class="border-b border-gray-200"></p>
+                      </div>
+                    </div>
+                  </div>
+
+                <% if (index < htmlWebpackPlugin.options.circles.length-1) { %>
+                  <div class="text-white w-7 flex justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#fff">
+                      <path d="M0 0h24v24H0V0z" fill="none" />
+                      <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6-6-6z" />
+                    </svg>
+                  </div>
+                <% } %>
+              </div>
+
+              <% }); %>
+          </div>
+    </div>
+  </div>
+
+
+  <!-- Activity dashboard starts here -->
+  <div class="block h-40">
+    <div class="eir-container mx-auto">
+      <div class="block">
+        <h3 class="border-b-2 border-black py-2">Activity Dashboard</h3>
+        
+      </div>
+
+      <% htmlWebpackPlugin.options.activities.forEach(function(activity){ %>
+        <div class="block">
+          <p class="text-sm py-2"><%=activity.heading%></p>
+
+          <% activity.items.forEach(function(item){ %>
+            <div class="eir-overview bg-gray-100 p-3 border-b border-gray-300">
+              <div class="flex">
+                <div class= h-20 w-20">
+                  <div class="blank-image"></div>
+                </div>
+                <div class="border-r border-gray-300 ml-4"></div>
+                <span class="<%=item.icon%> mx-2.5"></span>
+                <div class="flex-1 flex flex-col">
+                  <p class="text-blue-400 mb-2"><%=item.label%></p>
+                  <p class="text-xs"><%=item.desc%></p>
+                  <span class="flex-1"></span>
+                  <span class="block text-xs text-gray-400"><%=item.mins%></span>
+                </div>
+              </div>
+            </div>
+          <% }); %>
+        </div>
+      <% }); %>
+
+    </div>
+  </div>
+  <!-- Activity dashboard ends here -->
+
+</body>
+
+</html>
